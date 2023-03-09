@@ -1,0 +1,24 @@
+.main {
+  max-width: 800px;
+}
+
+.main ul {
+  width: 100%;
+}
+
+.main p {
+  text-align: left;
+  padding: 1rem;
+}
+
+@media (orientation: landscape) {
+  .main ul {
+    padding-left: 3rem;
+  }
+}
+
+@media (orientation: portrait) {
+  .main ul {
+    padding-left: 2rem;
+  }
+}

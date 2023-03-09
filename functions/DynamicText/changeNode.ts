@@ -27,19 +27,39 @@ import { isElement } from "react-is";
  * 
  * @param initialNode 
  * @param finalNode 
- * @param setNode 
+ * @param setNode
+ * @param inAnimation a boolean state variable denoting whether
+ * or not the animation is currently running. If it is, then the
+ * function immediately returns. 
+ * @param setInAnimation a state action function to set
+ * `animationState` to `true` while the animation is running, and
+ * setting it to `false` after the animation completes. 
  */
 export default async function changeNode(
   initialNode: ReactNode,
   finalNode: ReactNode,
   setNode: Dispatch<SetStateAction<ReactNode>>,
-  timeLimit: number = 800
-) {
-  let TopLevelType = isElement(initialNode) ? initialNode.type : null;
-  let TopLevelProps = isElement(initialNode) ? initialNode.props : null;
+  inAnimation?: boolean,
+  setInAnimation?: Dispatch<SetStateAction<boolean>>,
+  timePerCharacter: number = 30,
+  timeLimit: number = 1000
+): Promise<boolean> {
+  if (inAnimation) return false;
+
+  let TopLevelType = 
+    isElement(initialNode) ? initialNode.type : 
+    isElement(finalNode) ? finalNode.type :
+    null;
+  let TopLevelProps = 
+    isElement(initialNode) ? initialNode.props : 
+    isElement(finalNode) ? finalNode.props :
+    null;
 
   let initialText: string = getText(initialNode);
   let finalText: string = getText(finalNode);
+
+  if (setInAnimation) setInAnimation(true);
+
   await changeText(
     initialText, 
     finalText, 
@@ -49,9 +69,11 @@ export default async function changeNode(
       null,
     {
       timeLimit,
-      timePerCharacter: 30
+      timePerCharacter
     }
   );
 
   setNode(finalNode);
+  if (setInAnimation) setInAnimation(false);
+  return true;
 }

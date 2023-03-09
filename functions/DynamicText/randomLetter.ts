@@ -1,5 +1,8 @@
-export default function randomLetter(): string {
+export default function randomLetter(length: number = 1): string {
   const alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
-  const index = Math.floor(Math.random() * alphabet.length);
-  return alphabet[index];
+  let randomString = "";
+  for (let i = 0; i < length; i++) {
+    randomString += alphabet[Math.floor(Math.random() * alphabet.length)];    
+  }
+  return randomString;
 }

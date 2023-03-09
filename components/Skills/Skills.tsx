@@ -1,6 +1,5 @@
-import style from "@/styles/Skills.module.css";
+import style from "./Skills.module.css";
 import { DynamicText } from "@/components";
-import Link from "next/link";
 
 export default function Skills() {
   return (
@@ -29,7 +28,7 @@ export default function Skills() {
         </DynamicText>     
       </ul>
       <DynamicText>
-        <h3>Libraries/Frameworks</h3>
+        <h3>Libraries / Frameworks</h3>
         <h3>Web Frameworks and Libraries</h3>
       </DynamicText>
       <ul>
@@ -70,7 +69,8 @@ export default function Skills() {
         <h2>Soft Skills</h2>
         <h2>Team Skills</h2>
       </DynamicText>
-      <p>I have taken a number of courses in Project management and software development methodologies. I am most familiar with Scrum, and have used Jira and Microsoft Projects to manage projects with classmates. As a team member, I reliably complete tasks assigned to me and always put effort into ensuring that the quality of my work is something I can take pride in.</p>
+      <p>I have taken a number of courses in Project management and software development methodologies. I am most familiar with Scrum, and have used Jira and Microsoft Projects to manage projects with classmates.</p>
+      <p>As a team member, I reliably complete tasks assigned to me and always ensure that the quality of my work is something I can take pride in.</p>
     </section>
   )
 }

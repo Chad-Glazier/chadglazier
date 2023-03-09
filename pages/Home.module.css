@@ -1,0 +1,10 @@
+.main {
+  transition: all 2000ms;
+  background-color: white;
+  color: black
+}
+
+.fadeIn {
+  background-color: black;
+  color: white;
+}

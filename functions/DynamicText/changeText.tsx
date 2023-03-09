@@ -35,18 +35,17 @@ export default async function changeText(
   let delay: number;
   if (options.timeLimit) {
     delay = Math.min(
-      options.timeLimit / (Math.abs(finalState.length - initialState.length) + finalState.length),
+      options.timeLimit / (Math.abs(finalState.length - initialState.length) + Math.max(finalState.length, initialState.length)),
       options.timePerCharacter
     );
   } else {
     delay = options.timePerCharacter;
   }
 
-  // initialize the current state
   let currentState: string = initialState;
 
   // iterate until the current state matches the final state
-  for (let iteration = 0; true; iteration++) {
+  for (let iteration = 0; true; initialState.length == 0 ? iteration += 1/2 : iteration++) {
     if (iteration > finalState.length && currentState.length == finalState.length) {
       setState(finalState);
       return;
@@ -60,28 +59,37 @@ export default async function changeText(
       currentState += randomLetter();
     }
 
-    // randomize the whole current state string, except for spaces
-    // and values that have been iterated over already
-    currentState = currentState
-      .split("")
-      .map((character: string, index: number) => {
-        if (
-          finalState.length > index &&
-          (
-            iteration > index ||
-            finalState[index].match(/\s/) || (
-              finalState === initialState ?
-                false :
-                finalState[index] == currentState[index]
+    if (
+      ! (
+        currentState.length > finalState.length &&
+        currentState.substring(0, finalState.length) == finalState        
+      )
+    ) {
+      currentState = currentState
+        .split("")
+        .map((character: string, index: number) => {
+          if (
+            finalState.length > index &&
+            (
+              iteration > index ||
+              finalState[index].match(/[\s\[\]]/) || (
+                finalState === initialState ?
+                  false :
+                  finalState[index] == currentState[index]
+              )
             )
-          )
-        ) {
-          return finalState[index];
-        }
-        return randomLetter();
-      })
-      .join("");
-    
+          ) {
+            return finalState[index];
+          }
+          return randomLetter();
+        })
+        .join("");      
+    } else {
+      if (iteration % (Math.floor(initialState.length / (finalState.length || 1)))) {
+        currentState = currentState.slice(0, -1)
+      }
+    }
+
     // update the state
     if (wrapper) {
       setState(

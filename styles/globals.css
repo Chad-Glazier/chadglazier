@@ -1,6 +1,6 @@
 :root {
-  --background-color: #141414;
-  --color: #fff;
+  --background-color: #fff;
+  --color: #000;
   --font: 'Raleway', sans-serif;
   --mono: 'Fira Code', monospace;
   --heading-mono: 'Major Mono Display', monospace;
@@ -21,7 +21,6 @@ body {
   font-family: var(--font);
   font-size: var(--font-size);
   scroll-behavior: smooth;
-  background-image: url('/skyrim/alduins-wall.jpg');
 }
 
 a {

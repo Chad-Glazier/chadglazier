@@ -1,0 +1,22 @@
+.main {
+  font-family: var(--heading-mono);
+  text-transform: lowercase;
+}
+
+.link::before {
+  visibility: hidden;
+  content: '[';
+}
+
+.link::after {
+  visibility: hidden;
+  content: ']';
+}
+
+.link:hover::before {
+  visibility: visible;
+}
+
+.link:hover::after {
+  visibility: visible;
+}
